@@ -1,0 +1,8 @@
+volumes:
+  - name: share
+    hosts: 
+      - gluster-1
+      - gluster-2
+    type: replica
+    parameter: 2
+mount_point: /mnt

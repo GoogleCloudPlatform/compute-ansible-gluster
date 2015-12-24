@@ -1,0 +1,20 @@
+- name: install the epel rpm
+  yum: name=http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-5.noarch.rpm
+- name: Install gluster repo
+  get_url: url=http://download.gluster.org/pub/gluster/glusterfs/LATEST/EPEL.repo/glusterfs-epel.repo dest=/etc/yum.repos.d/glusterfs-epel.repo
+- name: install gluster server
+  yum: name=glusterfs-server
+- name: start and enable glusterd
+  service: name=glusterd enabled=yes state=started
+- name: Create XFS filesystem on data device
+  filesystem: fstype=xfs dev=/dev/sdb force=yes
+- name: Create brick directory
+  file: name={{ mount_point }} state=directory
+- name: Mount XFS filesystem
+  mount: name={{ mount_point }} src=/dev/sdb fstype=xfs state=mounted
+- name: Peer hosts
+  command:  gluster peer probe {{ item.1 }}
+  retries: 5
+  with_subelements:
+    - volumes
+    - hosts

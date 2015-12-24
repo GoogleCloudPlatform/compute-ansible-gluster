@@ -1,0 +1,4 @@
+- name: Download script
+  get_url: url=https://repo.stackdriver.com/stack-install.sh dest=/root/stack-install.sh 
+- name: Install Stackdriver Agent
+  shell: bash /root/stack-install.sh --api-key=2CR3CI04NRMM6A6SYL2QQNA6XTSXZ2TI

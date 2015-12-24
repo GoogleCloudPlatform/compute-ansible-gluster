@@ -1,0 +1,40 @@
+- name: Create disks(s) and instance(s)
+  hosts: localhost
+  gather_facts: no
+  connection: local
+  vars:
+    machine_type: n1-standard-2 # default
+    image: rhel-7
+    hosts:
+      - gluster-client-1
+      - gluster-client-2
+      - gluster-client-3
+    state: active
+
+  tasks:
+    - name: Launch instances
+      gce:
+          instance_names: "{{ hosts|join(',') }}"
+          machine_type: "{{ machine_type }}"
+          image: "{{ image }}"
+          tags: gluster-clients
+          zone: us-central1-a
+          state: "{{ state }}"
+      register: gce
+
+    - name: Wait for SSH to come up
+      wait_for: host={{ item.public_ip }} port=22 delay=10 timeout=60
+      with_items: gce.instance_data
+
+    - name: Add host to gluster group
+      add_host: hostname={{ item.public_ip }} groupname=gluster-clients
+      with_items: gce.instance_data
+
+- name: Configure instance(s) with gluster-client
+  hosts: gluster-clients
+  sudo: True
+  vars:
+    mount_point: /mnt
+  roles:
+    - stackdriver_agent
+    - client

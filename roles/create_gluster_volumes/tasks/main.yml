@@ -1,0 +1,21 @@
+- name: Create directories for volumes
+  file: name={{ mount_point }}/{{ item.name }} state=directory
+  with_items: volumes
+- name: Check for created volumes
+  command: gluster volume list
+  register: gfs_volumes
+  run_once: True
+- name: Create gluster volumes
+  command: gluster volume create {{ item.name }} {{ item.type }} {{ item.parameter }} {% for x in item.hosts %}{{ x }}:{{ mount_point }}/{{ item.name }} {% endfor %}
+  run_once: True
+  with_items: volumes
+  when: gfs_volumes.stdout.find(item.name) == -1
+- name: Start gluster volumes
+  command: gluster volume start {{ item.name }}
+  run_once: True
+  with_items:  volumes
+  when: gfs_volumes.stdout.find(item.name) == -1
+- name: Allow users
+  command: gluster volume set {{ item.name }} auth.allow {{ item.allow }}
+  run_once: True
+  with_items:  volumes
