@@ -13,8 +13,11 @@
 - name: Mount XFS filesystem
   mount: name={{ mount_point }} src=/dev/sdb fstype=xfs state=mounted
 - name: Peer hosts
-  command:  gluster peer probe {{ item.1 }}
+  action: command gluster peer probe {{ item.1 }}
+  register: result
+  until: result|success
   retries: 5
+  delay: 10
   with_subelements:
     - volumes
     - hosts

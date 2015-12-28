@@ -5,7 +5,7 @@
   vars:
     state: active
     machine_type: n1-standard-2 # default
-    image: rhel-7-v20151104
+    image: rhel-7
     hosts:
       - gluster-1
       - gluster-2
@@ -49,14 +49,13 @@
   vars:
     volumes:
     - name: share
-      type: stripe 3
+      type: replica 3
       parameter: transport tcp
       allow: 10.240.*
       hosts:
         - gluster-1
         - gluster-2
         - gluster-3
-    state: active
     mount_point: /mnt
   roles:
     - stackdriver_agent
