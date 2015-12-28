@@ -7,8 +7,6 @@
     image: rhel-7
     hosts:
       - gluster-client-1
-      - gluster-client-2
-      - gluster-client-3
     state: active
 
   tasks:
@@ -34,6 +32,7 @@
   hosts: gluster-clients
   sudo: True
   vars:
+    mount_device: gluster-1:/share
     mount_point: /mnt
   roles:
     - stackdriver_agent

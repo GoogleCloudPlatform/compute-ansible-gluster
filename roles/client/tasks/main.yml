@@ -5,6 +5,6 @@
 - name: install gluster server
   yum: name=glusterfs-client
 - name: Mount Gluster filesystem
-  mount: name={{ mount_point }} src=gluster-1:/share fstype=glusterfs state=mounted
-- name: Install bonnie++
+  mount: name={{ mount_point }} src={{ mount_device }} fstype=glusterfs state=mounted
+- name: Install Bonnie++
   yum: name=bonnie++
