@@ -1,5 +1,18 @@
 # Pre-requisites
 
+First you will need to download some credentials and set some environment
+variables in order to authenticate with GCP. Follow [this
+tutorial](http://docs.ansible.com/ansible/guide_gce.html#credentials) to get
+your PEM file.
+
+Once you have your PEM file on your local machine set the following environment
+variables that will be used by Ansible's GCP modules in order to create
+resources:
+
+    export GCE_EMAIL=<your-service-account-email>
+    export GCE_PROJECT=<your-project-id>
+    export GCE_PEM_FILE_PATH=<path-to-your-newly-created-pem-file>
+
 In order to run the playbook you will need to install Ansible and Libcloud as
 follows:
 
