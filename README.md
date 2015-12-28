@@ -85,3 +85,11 @@ care of the provisioning for you.
 These playbooks also setup the Stackdriver and Logging agents on the instances.
 You can checkout your logs [here](https://console.developers.google.com/logs) and your monitoring
 [here](https://app.google.stackdriver.com/).
+
+# Destroying your cluster and clients
+
+You can use the Ansible playbooks to turn down your machines by running the
+following:
+
+    ansible-playbook -i hosts gluster.yml -e state=absent
+    ansible-playbook -i hosts gluster-clients.yml -e state=absent
