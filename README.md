@@ -37,8 +37,7 @@ In order to create Gluster volumes at provisioning time you can define the
 following keys that describe the type of volume to create in the cluster.
 
 - `name`: Identifier for your volume
-- `type`: Gluster volume type. Examples are `stripe 3`, `replica 3`, or `stripe
-  3 replica 3`
+- `type`: Gluster volume type. Examples are `stripe 3`, `replica 3`, or `stripe 3 replica 3`
 - `parameter`: Additional parameters that you need to pass to your volume
   creation command before listing out the bricks that will be used.
 - `allow`: Defines the subnet of hosts that you will allow to mount to your
