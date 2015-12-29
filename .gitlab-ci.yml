@@ -3,7 +3,7 @@ stages:
   - run
 
 variables:
-  ANSIBLE_ROLES_PATH: ../
+  ANSIBLE_ROLES_PATH: ./roles
 
 centos7_syntax:
   stage: check_syntax
