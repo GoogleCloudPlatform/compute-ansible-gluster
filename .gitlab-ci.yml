@@ -1,0 +1,18 @@
+stages:
+  - check_syntax
+  - run
+
+variables:
+  ANSIBLE_ROLES_PATH: ../
+
+centos7_syntax:
+  stage: check_syntax
+  image: williamyeh/ansible:centos7
+  script:
+  - ansible-playbook -i hosts tests/test.yml --syntax-check
+
+centos7_run:
+  stage: run
+  image: williamyeh/ansible:centos7
+  script:
+  - ansible-playbook -i hosts tests/test.yml

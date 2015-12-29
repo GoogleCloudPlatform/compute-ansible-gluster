@@ -1,0 +1,8 @@
+---
+- hosts: localhost
+  remote_user: root
+  roles:
+    - stackdriver_agent
+    - install
+    - create_gluster_volumes
+    - client
