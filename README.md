@@ -76,7 +76,8 @@ then run the following:
     sudo mount -t glusterfs <ip-of-a-machine-in-your-cluster>:/share /mnt
 
 For a quick example, you can run the gluster-clients.yml playbook which will take
-care of the provisioning for you.
+care of the provisioning a client for you and run a benchmark with
+[sysbench](https://github.com/akopytov/sysbench).
 
     ansible-playbook -i hosts gluster-clients.yml
 
