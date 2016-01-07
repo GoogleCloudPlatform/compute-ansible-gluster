@@ -1,3 +1,8 @@
+# Introduction
+
+This tutorial will take you through the provisioning and testing of a multinode
+GlusterFS cluster on GCE.
+
 # Pre-requisites
 
 First you will need to download some credentials and set some environment
