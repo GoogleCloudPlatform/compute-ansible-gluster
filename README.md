@@ -1,3 +1,8 @@
+# Introduction
+
+This tutorial will take you through the provisioning and testing of a multinode
+GlusterFS cluster on GCE.
+
 # Pre-requisites
 
 First you will need to download some credentials and set some environment
@@ -21,8 +26,8 @@ follows:
 Once those dependencies have been installed, clone the repository and enter the
 directory:
 
-    git clone https://github.com/GoogleCloudPlatform/gluster-ansible
-    cd gluster-ansible
+    git clone https://github.com/GoogleCloudPlatform/ansible-gluster
+    cd ansible-gluster
 
 # Cluster Configuration
 
