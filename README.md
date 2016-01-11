@@ -20,6 +20,9 @@ resources:
     export GCE_PROJECT=<your-project-id>
     export GCE_PEM_FILE_PATH=<path-to-your-newly-created-pem-file>
 
+You will also need to ensure that you have your local machine's SSH key uploaded
+to your project's metadata. For more information read our guide on [adding and removing SSH keys](https://cloud.google.com/compute/docs/instances/adding-removing-ssh-keys?hl=en).
+
 In order to run the playbook you will need to install Ansible and Libcloud as
 follows:
 
