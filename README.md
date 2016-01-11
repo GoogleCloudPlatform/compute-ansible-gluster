@@ -3,6 +3,8 @@
 This tutorial will take you through the provisioning and testing of a multinode
 GlusterFS cluster on GCE.
 
+[![asciicast](https://asciinema.org/a/33428.png)](https://asciinema.org/a/33428)
+
 # Pre-requisites
 
 First you will need to download some credentials and set some environment
