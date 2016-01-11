@@ -10,9 +10,3 @@ centos7_syntax:
   image: williamyeh/ansible:centos7
   script:
   - ansible-playbook -i hosts tests/test.yml --syntax-check
-
-centos7_run:
-  stage: run
-  image: williamyeh/ansible:centos7
-  script:
-  - ansible-playbook -i hosts tests/test.yml --connection=local --sudo -e stackdriver_api_key=$STACKDRIVER_API_KEY
