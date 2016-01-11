@@ -35,5 +35,4 @@
     mount_device: gluster-1:/share
     mount_point: /mnt
   roles:
-    - stackdriver_agent
     - client
