@@ -102,5 +102,4 @@ You can checkout your logs [here](https://console.developers.google.com/logs) an
 You can use the Ansible playbooks to turn down your machines by running the
 following:
 
-    ansible-playbook -i hosts gluster.yml -e state=absent
-    ansible-playbook -i hosts gluster-clients.yml -e state=absent
+    ansible-playbook -i hosts gluster.yml gluster-clients.yml -e state=absent
