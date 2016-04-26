@@ -2,15 +2,21 @@
   yum: name=http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-5.noarch.rpm
 - name: Install gluster repo
   get_url: url=http://download.gluster.org/pub/gluster/glusterfs/LATEST/EPEL.repo/glusterfs-epel.repo dest=/etc/yum.repos.d/glusterfs-epel.repo
+- name: Install PIP
+  yum: name=python-pip
 - name: Install Gluster client
   yum: name=glusterfs-client
-- name: Mount Gluster filesystem
-  mount: name={{ mount_point }} src={{ mount_device }} fstype=glusterfs state=mounted
+- name: Install NFS utils
+  yum: name=nfs-utils
+- name: Mount shared filesystem
+  mount: name={{ mount_point }} src={{ mount_device }} fstype={{ fstype }} state=mounted
+- name: Create sysbench test file directory
+  file: state=directory path={{ mount_point }}/{{ ansible_hostname }}
 - name: Install sysbench
   yum: name=sysbench
 - name: Generate files for sysbench test
-  command: chdir={{ mount_point }} sysbench --test=fileio --file-total-size=16G prepare
+  command: chdir={{ mount_point }}/{{ ansible_hostname }} sysbench --test=fileio --file-total-size=16G prepare creates={{ mount_point }}/{{ ansible_hostname }}/test_file.*
 - name: Run sysbench
-  command: chdir={{ mount_point }} sysbench --test=fileio --file-total-size=16G --file-test-mode=rndrw --max-time=240 --max-requests=0 --file-block-size=4K --num-threads=4 --file-fsync-all run
+  shell: chdir={{ mount_point }}/{{ ansible_hostname }} sysbench --test=fileio --file-total-size=16G --file-test-mode={{ fileio_test }} --max-time=60 --max-requests=0 --file-block-size=4K --num-threads=4 --file-fsync-all run | grep 'Total transferred'
   register: sysbench
-- debug: var=sysbench.stdout_lines
+- debug: var=sysbench.stdout
