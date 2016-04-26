@@ -3,10 +3,14 @@
   gather_facts: no
   connection: local
   vars:
-    machine_type: n1-standard-2 # default
-    image: rhel-7
+    machine_type: n1-standard-1 # default
+    image: centos-7
     hosts:
       - gluster-client-1
+      - gluster-client-2
+      - gluster-client-3
+      - gluster-client-4
+      - gluster-client-5
     state: active
 
   tasks:
@@ -16,8 +20,11 @@
           machine_type: "{{ machine_type }}"
           image: "{{ image }}"
           tags: gluster-clients
-          zone: us-central1-a
+          zone: us-east1-d
           state: "{{ state }}"
+          service_account_permissions:
+          - logging-write
+          - monitoring
       register: gce
 
     - name: Wait for SSH to come up
@@ -30,7 +37,7 @@
 
 - name: Configure instance(s) with gluster-client
   hosts: gluster-clients
-  sudo: True
+  become: true
   vars:
     mount_device: gluster-1:/share
     mount_point: /mnt
