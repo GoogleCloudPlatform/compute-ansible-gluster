@@ -77,6 +77,7 @@ by setting the global variable `mount_point`.
 Once you have configured your cluster specifications you can provision it by
 running the Ansible playbook as follows:
 
+    export ANSIBLE_HOST_KEY_CHECKING=False
     ansible-playbook -i hosts gluster.yml
 
 # Testing your setup
@@ -91,6 +92,7 @@ For a quick example, you can run the gluster-clients.yml playbook which will tak
 care of the provisioning a client for you and run a benchmark with
 [sysbench](https://github.com/akopytov/sysbench).
 
+    export ANSIBLE_HOST_KEY_CHECKING=False
     ansible-playbook -i hosts gluster-clients.yml
 
 # Monitoring and logging
