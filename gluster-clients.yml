@@ -8,9 +8,6 @@
     hosts:
       - gluster-client-1
       - gluster-client-2
-      - gluster-client-3
-      - gluster-client-4
-      - gluster-client-5
     state: active
 
   tasks:
@@ -20,7 +17,7 @@
           machine_type: "{{ machine_type }}"
           image: "{{ image }}"
           tags: gluster-clients
-          zone: us-east1-d
+          zone: us-east1-b
           state: "{{ state }}"
           service_account_permissions:
           - logging-write
@@ -29,17 +26,19 @@
 
     - name: Wait for SSH to come up
       wait_for: host={{ item.public_ip }} port=22 delay=10 timeout=60
-      with_items: gce.instance_data
+      with_items: "{{gce.instance_data | default({})}}"
 
     - name: Add host to gluster group
       add_host: hostname={{ item.public_ip }} groupname=gluster-clients
-      with_items: gce.instance_data
+      with_items: "{{gce.instance_data | default({})}}"
 
 - name: Configure instance(s) with gluster-client
   hosts: gluster-clients
   become: true
   vars:
-    mount_device: gluster-1:/share
+    mount_device: gluster-1b:/share
     mount_point: /mnt
+    fstype: glusterfs
+    fileio_test: rndrw
   roles:
     - client
