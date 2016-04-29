@@ -19,5 +19,5 @@
   retries: 5
   delay: 10
   with_subelements:
-    - volumes
+    - "{{volumes}}"
     - hosts
