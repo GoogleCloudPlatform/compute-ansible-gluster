@@ -1,7 +1,7 @@
 - name: Install the EPEL repo
-  yum: name=http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-6.noarch.rpm
+  yum: name=epel-release
 - name: Install gluster repo
-  get_url: url=http://download.gluster.org/pub/gluster/glusterfs/LATEST/EPEL.repo/glusterfs-epel.repo dest=/etc/yum.repos.d/glusterfs-epel.repo
+  yum: name=centos-release-gluster
 - name: Install PIP
   yum: name=python-pip
 - name: Install Gluster client
