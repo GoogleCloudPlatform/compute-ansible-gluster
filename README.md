@@ -66,7 +66,6 @@ following keys that describe the type of volume to create in the cluster.
 - `parameters`: List of parameters for the volume.
   [Full
   list](http://www.gluster.org/community/documentation/index.php/Gluster_3.2:_Setting_Volume_Options)
-  creation command before listing out the bricks that will be used.
 - `hosts`: The list of hosts that this volume will be created on.
 
 Volumes will be mounted at /mnt/NAME by default. The mount path can be changed
