@@ -1,0 +1,16 @@
+[global]
+runtime=60
+
+[job1]
+rw=read
+blocksize=1m
+size=1g
+nrfiles=1000
+rate=500m
+
+[job2]
+rw=write
+blocksize_range=64k-1m
+size=100g
+nrfiles=1
+rate=30m
