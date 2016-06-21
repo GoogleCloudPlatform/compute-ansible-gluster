@@ -21,3 +21,6 @@
   with_subelements:
     - "{{volumes}}"
     - hosts
+- name: Set sysctl parameters
+  sysctl: name={{item.name}} value={{item.value}} state=present sysctl_set=yes reload=yes
+  with_items: "{{sysctl}}"

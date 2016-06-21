@@ -77,6 +77,11 @@
   hosts: gluster
   become: true
   vars:
+    sysctl:
+    - name: vm.dirty_ratio
+      value: 5
+    - name: vm.dirty_background_ratio
+      value: 2
     volumes:
     - name: share
       type: replica 2
