@@ -79,6 +79,7 @@ running the Ansible playbook as follows:
 
     export ANSIBLE_HOST_KEY_CHECKING=False
     ansible-playbook -i hosts gluster.yml
+    cat /tmp/gluster-client-*/*/tmp/* # view your results
 
 # Testing your setup
 
@@ -90,7 +91,7 @@ then run the following:
 
 For a quick example, you can run the gluster-clients.yml playbook which will take
 care of the provisioning a client for you and run a benchmark with
-[sysbench](https://github.com/akopytov/sysbench).
+[fio](https://github.com/axboe/fio).
 
     export ANSIBLE_HOST_KEY_CHECKING=False
     ansible-playbook -i hosts gluster-clients.yml
