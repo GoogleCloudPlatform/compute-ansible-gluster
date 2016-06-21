@@ -43,13 +43,14 @@
 
     - name: Launch instances
       gce:
-          instance_names: "{{ hosts_c|join(',') }}"
+          instance_names: "{{ hosts_c | join(',') }}"
           machine_type: "{{ machine_type }}"
           image: rhel-7
           tags: gluster
           zone: "{{ zone }}-d"
           state: "{{ state }}"
       register: gce
+      when: hosts_c is defined
 
     - name: Add host to gluster group
       add_host: hostname={{ item.public_ip }} groupname=gluster
@@ -65,7 +66,7 @@
           zone: "{{ zone }}-d"
           mode: READ_WRITE
           state: "{{ state }}"
-      with_items: "{{hosts_c}}"
+      with_items: "{{hosts_c | default([])}}"
 
     - name: Wait for SSH to come up
       wait_for: host={{ item.public_ip }} port=22 delay=10 timeout=60
