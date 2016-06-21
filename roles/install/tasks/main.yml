@@ -6,8 +6,13 @@
   yum: name=glusterfs-server
 - name: start and enable glusterd
   service: name=glusterd enabled=yes state=started
+- name: Check FS
+  shell: mount | grep /dev/sdb
+  ignore_errors: yes
+  register: fs_mounted
 - name: Create XFS filesystem on data device
   filesystem: fstype=xfs dev=/dev/sdb force=yes
+  when: fs_mounted|failed
 - name: Create brick directory
   file: name={{ mount_point }} state=directory
 - name: Mount XFS filesystem
