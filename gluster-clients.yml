@@ -39,6 +39,6 @@
     mount_device: gluster-1b:/share
     mount_point: /mnt
     fstype: glusterfs
-    fileio_test: rndrw
   roles:
+    - stackdriver_agent
     - client
