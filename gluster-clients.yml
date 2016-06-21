@@ -3,7 +3,7 @@
   gather_facts: no
   connection: local
   vars:
-    machine_type: n1-standard-1 # default
+    machine_type: n1-standard-2 # default
     image: centos-7
     hosts:
       - gluster-client-1
