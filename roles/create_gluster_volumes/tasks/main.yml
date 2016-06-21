@@ -6,7 +6,7 @@
   register: gfs_volumes
   run_once: True
 - name: Create gluster volumes
-  command: gluster volume create {{ item.name }} {{ item.type }} {{ item.parameter }} {% for x in item.hosts %}{{ x }}:{{ mount_point }}/{{ item.name }} {% endfor %}
+  command: gluster volume create {{ item.name }} {{ item.type }} {% for x in item.hosts %}{{ x }}:{{ mount_point }}/{{ item.name }} {% endfor %}
   run_once: True
   with_items: "{{volumes}}"
   when: gfs_volumes.stdout.find(item.name) == -1
@@ -15,7 +15,9 @@
   run_once: True
   with_items: "{{volumes}}"
   when: gfs_volumes.stdout.find(item.name) == -1
-- name: Allow users
-  command: gluster volume set {{ item.name }} auth.allow {{ item.allow }}
+- name: Set parameters
+  command: gluster volume set {{ item.0.name }} {{ item.1 }}
   run_once: True
-  with_items: "{{volumes}}"
+  with_subelements:
+   - "{{volumes}}"
+   - parameters

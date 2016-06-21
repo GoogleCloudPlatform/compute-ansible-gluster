@@ -84,9 +84,17 @@
       value: 2
     volumes:
     - name: share
-      type: replica 2
-      parameter: transport tcp
-      allow: 10.240.*
+      type: ""
+      parameters:
+        - allow 10.240.*
+        - client.event-threads 4
+        - server.event-threads 4
+        - performance.cache-size 2GB
+        - performance.io-thread-count 16
+        - performance.client-io-threads on
+        - performance.io-cache on
+        - performance.readdir-ahead on
+        - cluster.lookup-optimize on
       hosts:
         - gluster-1b
         - gluster-1d
