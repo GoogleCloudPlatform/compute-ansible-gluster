@@ -12,15 +12,15 @@ GlusterFS cluster on GCE.
 First you will need to download some credentials and set some environment
 variables in order to authenticate with GCP. Follow [this
 tutorial](http://docs.ansible.com/ansible/guide_gce.html#credentials) to get
-your PEM file.
+your JSON credentials file.
 
-Once you have your PEM file on your local machine set the following environment
+Once you have your JSON credentials file on your local machine set the following environment
 variables that will be used by Ansible's GCP modules in order to create
 resources:
 
     export GCE_EMAIL=<your-service-account-email>
     export GCE_PROJECT=<your-project-id>
-    export GCE_PEM_FILE_PATH=<path-to-your-newly-created-pem-file>
+    export GCE_CREDENTIALS_FILE_PATH=<path-to-your-newly-created-pem-file>
 
 You will also need to ensure that you have your local machine's SSH key uploaded
 to your project's metadata. For more information read our guide on [adding and removing SSH keys](https://cloud.google.com/compute/docs/instances/adding-removing-ssh-keys?hl=en).
@@ -28,7 +28,7 @@ to your project's metadata. For more information read our guide on [adding and r
 In order to run the playbook you will need to install Ansible and Libcloud as
 follows:
 
-    pip install ansible apache-libcloud==0.19.0
+    pip install ansible "apache-libcloud>=0.19.0"
 
 Once those dependencies have been installed, clone the repository and enter the
 directory:
