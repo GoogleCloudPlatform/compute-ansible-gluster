@@ -3,7 +3,7 @@
   gather_facts: no
   connection: local
   vars:
-    machine_type: n1-standard-1 # default
+    machine_type: n1-standard-2 # default
     image: centos-7
     hosts:
       - gluster-client-1
@@ -39,6 +39,6 @@
     mount_device: gluster-1b:/share
     mount_point: /mnt
     fstype: glusterfs
-    fileio_test: rndrw
   roles:
+    - stackdriver_agent
     - client
