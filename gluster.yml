@@ -45,7 +45,7 @@
       gce:
           instance_names: "{{ hosts_c | join(',') }}"
           machine_type: "{{ machine_type }}"
-          image: rhel-7
+          image: centos-7
           tags: gluster
           zone: "{{ zone }}-d"
           state: "{{ state }}"
