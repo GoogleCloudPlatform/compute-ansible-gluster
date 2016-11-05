@@ -33,7 +33,7 @@ follows:
 Once those dependencies have been installed, clone the repository and enter the
 directory:
 
-    git clone https://github.com/GoogleCloudPlatform/ansible-gluster
+    git clone https://github.com/GoogleCloudPlatform/compute-ansible-gluster
     cd ansible-gluster
 
 # Cluster Configuration
