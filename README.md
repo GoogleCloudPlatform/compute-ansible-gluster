@@ -28,7 +28,7 @@ to your project's metadata. For more information read our guide on [adding and r
 In order to run the playbook you will need to install Ansible and Libcloud as
 follows:
 
-    pip install ansible "apache-libcloud>=0.19.0"
+    pip install "ansible==2.2.2" "apache-libcloud==1.5.0"
 
 Once those dependencies have been installed, clone the repository and enter the
 directory:
