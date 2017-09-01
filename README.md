@@ -9,6 +9,8 @@ GlusterFS cluster on GCE.
 
 # Pre-requisites
 
+## Create service account
+
 First you will need to download some credentials and set some environment
 variables in order to authenticate with GCP.
 
@@ -28,6 +30,8 @@ resources:
     export GCE_EMAIL=$SA_EMAIL
     export GCE_PROJECT=$PROJECT
     export GCE_CREDENTIALS_FILE_PATH=ansible-gluster-sa.json
+
+## Add SSH Key to project metadata
 
 You will also need to ensure that you have your local machine's SSH key uploaded
 to your project's metadata.
