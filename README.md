@@ -10,17 +10,24 @@ GlusterFS cluster on GCE.
 # Pre-requisites
 
 First you will need to download some credentials and set some environment
-variables in order to authenticate with GCP. Follow [this
-tutorial](http://docs.ansible.com/ansible/guide_gce.html#credentials) to get
-your JSON credentials file.
+variables in order to authenticate with GCP.
+
+    gcloud iam service-accounts create ansible-gluster --display-name ansible-gluster
+    export SA_EMAIL=$(gcloud iam service-accounts list --filter="displayName:ansible-gluster" --format='value(email)')
+    export PROJECT=$(gcloud info --format='value(config.project)')
+    gcloud projects add-iam-policy-binding $PROJECT --role roles/compute.storageAdmin --member serviceAccount:$SA_EMAIL
+    gcloud projects add-iam-policy-binding $PROJECT --role roles/compute.instanceAdmin.v1 --member serviceAccount:$SA_EMAIL
+    gcloud projects add-iam-policy-binding $PROJECT --role roles/compute.networkAdmin --member serviceAccount:$SA_EMAIL
+    gcloud projects add-iam-policy-binding $PROJECT --role roles/compute.securityAdmin --member serviceAccount:$SA_EMAIL
+    gcloud iam service-accounts keys create ansible-gluster-sa.json --iam-account $SA_EMAIL
 
 Once you have your JSON credentials file on your local machine set the following environment
 variables that will be used by Ansible's GCP modules in order to create
 resources:
 
-    export GCE_EMAIL=<your-service-account-email>
-    export GCE_PROJECT=<your-project-id>
-    export GCE_CREDENTIALS_FILE_PATH=<path-to-your-newly-created-pem-file>
+    export GCE_EMAIL=$SA_EMAIL
+    export GCE_PROJECT=$PROJECT
+    export GCE_CREDENTIALS_FILE_PATH=ansible-gluster-sa.json
 
 You will also need to ensure that you have your local machine's SSH key uploaded
 to your project's metadata. For more information read our guide on [adding and removing SSH keys](https://cloud.google.com/compute/docs/instances/adding-removing-ssh-keys?hl=en).
