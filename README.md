@@ -30,7 +30,12 @@ resources:
     export GCE_CREDENTIALS_FILE_PATH=ansible-gluster-sa.json
 
 You will also need to ensure that you have your local machine's SSH key uploaded
-to your project's metadata. For more information read our guide on [adding and removing SSH keys](https://cloud.google.com/compute/docs/instances/adding-removing-ssh-keys?hl=en).
+to your project's metadata.
+
+    ls ~/.ssh/id_rsa.pub || ssh-keygen -N ""
+    gcloud compute project-info describe --format=json | jq -r '.commonInstanceMetadata.items[] | select(.key == "sshKeys") | .value' > sshKeys.pub
+    echo "$USER:$(cat ~/.ssh/id_rsa.pub)" >> sshKeys.pub
+    gcloud compute project-info add-metadata --metadata-from-file sshKeys=sshKeys.pub
 
 In order to run the playbook you will need to install Ansible and Libcloud as
 follows:
