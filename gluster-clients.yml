@@ -40,5 +40,4 @@
     mount_point: /mnt
     fstype: glusterfs
   roles:
-    - stackdriver_agent
     - client
