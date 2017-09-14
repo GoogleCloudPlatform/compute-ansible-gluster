@@ -23,14 +23,6 @@ variables in order to authenticate with GCP.
     gcloud projects add-iam-policy-binding $PROJECT --role roles/compute.securityAdmin --member serviceAccount:$SA_EMAIL
     gcloud iam service-accounts keys create ansible-gluster-sa.json --iam-account $SA_EMAIL
 
-Once you have your JSON credentials file on your local machine set the following environment
-variables that will be used by Ansible's GCP modules in order to create
-resources:
-
-    export GCE_EMAIL=$SA_EMAIL
-    export GCE_PROJECT=$PROJECT
-    export GCE_CREDENTIALS_FILE_PATH=ansible-gluster-sa.json
-
 ## Add SSH Key to project metadata
 
 You will also need to ensure that you have your local machine's SSH key uploaded
@@ -44,7 +36,7 @@ to your project's metadata.
 In order to run the playbook you will need to install Ansible and Libcloud as
 follows:
 
-    pip install "ansible==2.2.2" "apache-libcloud==1.5.0"
+    pip install --user "ansible==2.2.2" "apache-libcloud==1.5.0"
 
 Once those dependencies have been installed, clone the repository and enter the
 directory:
@@ -92,7 +84,11 @@ by setting the global variable `mount_point`.
 Once you have configured your cluster specifications you can provision it by
 running the Ansible playbook as follows:
 
+    export GCE_EMAIL=$SA_EMAIL
+    export GCE_PROJECT=$PROJECT
+    export GCE_CREDENTIALS_FILE_PATH=../ansible-gluster-sa.json
     export ANSIBLE_HOST_KEY_CHECKING=False
+    export PATH=~/.local/bin:$PATH
     ansible-playbook -i hosts gluster.yml
     cat /tmp/gluster-client-*/*/tmp/* # view your results
 
