@@ -9,8 +9,8 @@
       - gluster-1b
       - gluster-2b
     hosts_c:
-      - gluster-1d
-      - gluster-2d
+      - gluster-1c
+      - gluster-2c
     disk_type: pd-ssd
     disk_size: 500
     zone: us-east1
@@ -47,7 +47,7 @@
           machine_type: "{{ machine_type }}"
           image: centos-7
           tags: gluster
-          zone: "{{ zone }}-d"
+          zone: "{{ zone }}-c"
           state: "{{ state }}"
       register: gce
       when: hosts_c is defined
@@ -63,7 +63,7 @@
           instance_name: "{{ item }}"
           size_gb: "{{ disk_size }}"
           disk_type: "{{ disk_type }}"
-          zone: "{{ zone }}-d"
+          zone: "{{ zone }}-c"
           mode: READ_WRITE
           state: "{{ state }}"
       with_items: "{{hosts_c | default([])}}"
@@ -97,9 +97,9 @@
         - cluster.lookup-optimize on
       hosts:
         - gluster-1b
-        - gluster-1d
+        - gluster-1c
         - gluster-2b
-        - gluster-2d
+        - gluster-2c
     mount_point: /mnt
   roles:
     - stackdriver_agent
